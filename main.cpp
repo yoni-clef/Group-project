@@ -1,79 +1,60 @@
 #include <iostream>
+#include <iomanip>  // include iomanip library for setw function
 using namespace std;
 
-int main() {
-    // Declare variables for ticket number, person code, and entrance fee
-    int ticketNum;
-    int personCode;
-    int entranceFee;
+int main()
+{
+    int n;
 
-    // Initialize variables for total people, total sales, infants, children, teenagers, and adults to 0
-    int totalPeople = 0;
-    int totalSales = 0;
-    int infants = 0;
-    int children = 0;
-    int teenagers = 0;
-    int adults = 0;
+    cout << "Enter the number you want to print in pattern: ";
+    cin >> n;
 
-    // Initialize pointers for total people and total sales
-    int *pTotalPeople = &totalPeople;
-    int *pTotalSales = &totalSales;
+    if (n > 0) {
+        // First half of the diamond pattern
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j < i + 1; j++) {
+                cout << setw(2) << j; // Increase space for the numbers
+            }
 
-    // Prompt the user to enter a ticket number
-    cout << "Enter ticket number: ";
-    cin >> ticketNum;
+            for (int k = n; k > i; k--) {
+                cout << "  "; // Increase space between the two halves
+            }
 
-    // While the ticket number is not negative
-    while (ticketNum >= 0) {
-        // Prompt the user to enter a person code (1 for infant, 2 for child, 3 for teenager, 4 for adult)
-        cout << "Enter person code (1 for infant, 2 for child, 3 for teenager, 4 for adult): ";
-        cin >> personCode;
+            for (int l = 1; l < n - i; l++) {
+                cout << "  "; // Increase space between the numbers and the right edge
+            }
 
-        // If the person code is 1 (infant), set the entrance fee to 10 and increment the number of infants by the number of tickets
-        if (personCode == 1) {
-            entranceFee = 10;
-            infants+=ticketNum;
-        }
-        // If the person code is 2 (child), set the entrance fee to 5 and increment the number of children by the number of tickets
-        else if (personCode == 2) {
-            entranceFee = 5;
-            children+=ticketNum;
-        }
-        // If the person code is 3 (teenager), set the entrance fee to 20 and increment the number of teenagers by the number of tickets
-        else if (personCode == 3) {
-            entranceFee = 20;
-            teenagers+=ticketNum;
-        }
-        // If the person code is 4 (adult), set the entrance fee to 20 and increment the number of adults by the number of tickets
-        else if (personCode == 4) {
-            entranceFee = 20;
-            adults+=ticketNum;
-        }
-        // If the person code is not valid, display an error message and continue to the next iteration of the loop
-        else {
-            cout << "Invalid person code. Please enter a valid code." << endl;
-            continue;
+            for (int m = i; m >= 0; m--) {
+                cout << setw(2) << m; // Increase space for the numbers
+            }
+
+            cout << "\n";
         }
 
-        // Increment the total number of people by the number of tickets  using the pointer
-        (*pTotalPeople)+= ticketNum;
-        // Add the entrance fee multiplied by the  to the total sales using the pointer
-        (*pTotalSales) += (entranceFee)*ticketNum;
+        // Second half of the diamond pattern
+        for (int i = n-1; i >= 0; i--) {
+            for (int j = 0; j <= i; j++) {
+                cout << setw(2) << j; // Increase space for the numbers
+            }
 
-        // Prompt the user to enter another ticket number
-        cout << "Enter ticket number: ";
-        cin >> ticketNum;
+            for (int k = n-1; k > i; k--) {
+                cout << "  "; // Increase space between the two halves
+            }
+
+            for (int l = n-i-1; l > 0; l--) {
+                cout << "  "; // Increase space between the numbers and the right edge
+            }
+
+            for (int m = i; m >= 0; m--) {
+                cout << setw(2) << m;
+            }
+
+            cout << "\n";
+        }
     }
-
-    // Display the total number of people using the pointer
-    cout << "Total people: " << *pTotalPeople << endl;
-    // Display the total amount of ticket sales using the pointer
-    cout << "Total sales: " << *pTotalSales << " ETB" << endl;
-    // Display the number of infants, children, teenagers, and adults
-    cout << "Infants (code 1): " << infants << endl;
-    cout << "Children (code 2): " << children << endl;
-    cout << "Teenagers (code 3): " << teenagers << endl;
-    cout << "Adults (code 4): " << adults << endl;
+    else {
+        cout << "Invalid input. Please enter a positive integer.\n";
+    }
 
     return 0;
 }
