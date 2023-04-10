@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+int n, flag = 0, count = 0, sum = 0;
+cout << "Enter a positive integer: ";
+cin >> n;
+
+// Check if the number is a prime number
+for (int i = 2; i <= sqrt(n); i++) {
+if (n % i == 0) {
+flag = 1;
+break;
+}
+}
+
+if (flag == 0) {
+// If the number is prime, find and print the average of all prime numbers between 1 and n
+for (int i = 2; i <= n; i++) {
+flag = 0;
+for (int j = 2; j <= sqrt(i); j++) {
+if (i % j == 0) {
+flag = 1;
+break;
+}
+}
+if (flag == 0) {
+count++;
+sum += i;
+}
+}
+cout << "The average value of prime numbers between 1 and " << n << " is " << (float) sum / count << endl;
+} else {
+// If the number is not prime, find and print all the prime factors
+cout << "The prime factors of " << n << " are: ";
+int *ptr = new int[n];
+int i = 2, j = 0;
+while (n > 1 && i <= sqrt(n)) {
+if (n % i == 0) {
+ptr[j++] = i;
+n /= i;
+} else {
+i++;
+}
+}
+if (n > 1) {
+ptr[j++] = n;
+}
+for (int k = 0; k < j; k++) {
+cout << ptr[k] << " ";
+}
+delete[] ptr;
+cout << endl;
+}
+return 0;
+}
+
